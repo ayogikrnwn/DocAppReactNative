@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {GetStarted, Login, Register, Splash,UploadPhoto,Doctor,Hospitals,Messages, ChooseDoctor} from '../../pages';
+import {GetStarted, Login, Register, Splash,UploadPhoto,Doctor,Hospitals,Messages, ChooseDoctor, Chat} from '../../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../../components';
 
@@ -30,6 +30,7 @@ const Ruter = () => {
             <Stack.Screen name="UploadPhoto" component={UploadPhoto} options={{headerShown: false}} />
             <Stack.Screen name="MainApp" component={MainApp} options={{headerShown: false}} />
             <Stack.Screen name="ChooseDoctor" component={ChooseDoctor} options={{headerShown: false}} />
+            <Stack.Screen name="Chat" component={Chat} options={{headerShown: false}} />
         </Stack.Navigator>
 
     );
