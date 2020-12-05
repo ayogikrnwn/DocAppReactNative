@@ -1,13 +1,13 @@
 import React from 'react'
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {DummyDoctor5} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 import {Button} from '../../atoms'
 
-const DarkProfile = () => {
+const DarkProfile = ({onPress}) => {
   return (
-    <View style={styles.container}>
-      <Button type="icon-only" icon="back-light" />
+    <View style={styles.container} onPress={onPress} >
+      <Button type="icon-only" icon="back-light" onPress={onPress} />
       <View style={styles.content}>
         <Text style={styles.name}>Nairobi Putri Hayza</Text>
         <Text style={styles.desc}>Dokter Anak</Text>
