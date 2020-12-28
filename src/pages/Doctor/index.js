@@ -1,16 +1,18 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { DummyDoctor1, DummyDoctor2, DummyDoctor3, JSONCategoryDoctor } from '../../assets';
 import {
   DoctorCategory,
   Gap,
   HomeProfile,
   NewsItem,
-  RatedDoctor,
+  RatedDoctor
 } from '../../components';
-import {colors, fonts} from '../../utils';
-import {DummyDoctor1, DummyDoctor2, DummyDoctor3, JSONCategoryDoctor} from '../../assets';
+import { colors, fonts } from '../../utils';
+
 
 const Doctor = ({navigation}) => {
+ 
   return (
     <View style={styles.page}>
       <View style={styles.content}>

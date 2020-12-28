@@ -2,30 +2,50 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../assets';
 import {Header, Button, Link, Gap} from '../../components';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, storeData} from '../../utils';
 import ImagePicker from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
+import {Fire} from '../../config';
 
-const UploadPhoto = ({navigation}) => {
+const UploadPhoto = ({navigation, route}) => {
+  const {fullName, proffesion, uid} = route.params;
+  const [photoforDB, setPhotoForDB] = useState('');
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILNullPhoto);
   const getImage = () => {
-    ImagePicker.launchImageLibrary({}, (response) => {
-      console.log('response: ', response);
-      if (response.didCancel || response.error) {
-        showMessage({
-          message: 'Oops, sepertinya anda belum memilih foto',
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white
-        })
-      } else {
-        const source = {uri: response.uri};
-        setPhoto(source);
-        setHasPhoto(true);
-      }
-    });
+    ImagePicker.launchImageLibrary(
+      {quality: 0.5, maxWidth: 200, maxHeight: 200},
+      (response) => {
+        console.log('response: ', response);
+        if (response.didCancel || response.error) {
+          showMessage({
+            message: 'Oops, sepertinya anda belum memilih foto',
+            type: 'default',
+            backgroundColor: colors.error,
+            color: colors.white,
+          });
+        } else {
+          console.log('reponse getImage: ', response);
+          setPhotoForDB(`data: ${response.type};base64, ${response.data}`);
+
+          const source = {uri: response.uri};
+          setPhoto(source);
+          setHasPhoto(true);
+        }
+      },
+    );
   };
+
+  const UploadAndContinue = () => {
+    Fire.database()
+      .ref('users/' + uid + '/')
+      .update({photo: photoforDB});
+      const data = route.params;
+      data.photo = photoforDB;
+
+      storeData('user', data);
+    navigation.navigate('MainApp')
+  }
   return (
     <View style={styles.page}>
       <Header title="Upload Photo" />
@@ -36,14 +56,14 @@ const UploadPhoto = ({navigation}) => {
             {hasPhoto && <IconRemovePhoto style={styles.addPhoto} />}
             {!hasPhoto && <IconAddPhoto style={styles.addPhoto} />}
           </TouchableOpacity>
-          <Text style={styles.name}>Ayogi Kurniawan</Text>
-          <Text style={styles.profession}>Android Developer</Text>
+          <Text style={styles.name}>{fullName}</Text>
+          <Text style={styles.profession}>{proffesion}</Text>
         </View>
         <View>
           <Button
             disable={!hasPhoto}
             title="Upload and Continue"
-            onPress={() => navigation.navigate('MainApp')}
+            onPress={UploadAndContinue}
           />
           <Gap height={30} />
           <Link

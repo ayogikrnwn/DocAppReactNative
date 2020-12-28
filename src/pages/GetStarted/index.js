@@ -9,7 +9,7 @@ const GetStarted = ({navigation}) => {
   return (
     <ImageBackground source={ILGetStarted} style={styles.page}>
         <View>
-        <ILlogo />
+        <ILlogo  />
       <Text style={styles.title}>Konsultasi dengan dokter jadi lebih mudah & fleksibel</Text>
         </View>
       <View>
