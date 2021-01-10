@@ -1,22 +1,35 @@
 /* eslint-disable prettier/prettier */
 import { NavigationContainer } from '@react-navigation/native';
-import React, {useState} from 'react';
+import React from 'react';
+import { YellowBox } from 'react-native';
+import FlashMessage from 'react-native-flash-message';
+import { Provider, useSelector } from 'react-redux';
+import { Loading } from './components';
+import store from './redux/store';
 import { Ruter } from './Router';
-import FlashMessage from "react-native-flash-message";
-import {Loading} from './components';
 
-const App = () => {
-  const [loading, setLoading] = useState(false);
+const MainApp = () => {
+  const stateGlobal = useSelector(state => state);      
+  YellowBox.ignoreWarnings(['Setting a timer']);
   return (
     <>
     <NavigationContainer>
       <Ruter />
     </NavigationContainer>
     <FlashMessage position="top" />
-    {loading && <Loading />}
+    {stateGlobal.loading && <Loading />}
     </>
   );
 };
+
+const App = () => {
+  return (
+    <Provider store={store}>
+    <MainApp />
+</Provider>
+)
+  };
+ 
 
 export default App;
 

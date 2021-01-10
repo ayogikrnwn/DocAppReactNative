@@ -1,27 +1,24 @@
-/* eslint-disable prettier/prettier */
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {ILlogo} from '../../assets';
-import { colors, fonts } from '../../utils';
-import {Fire} from '../../config';  
+import {colors, fonts} from '../../utils';
+import {Fire} from '../../config';
 
 const Splash = ({navigation}) => {
-  useEffect(()=> {
-    setTimeout(() => {
-      Fire.auth().onAuthStateChanged((user) => {
-        if(user){
-          //user sedang login
+  useEffect(() => {
+    const unsubscribe = Fire.auth().onAuthStateChanged(user => {
+      setTimeout(() => {
+        if (user) {
           navigation.replace('MainApp');
         } else {
-          //user logout
-          navigation.replace('GetStarted')
+          navigation.replace('GetStarted');
         }
+      }, 3000);
+    });
 
-      }); 
-     
-    }, 3000) 
- 
+    return () => unsubscribe();
   }, [navigation]);
+
   return (
     <View style={styles.page}>
       <ILlogo />
@@ -41,7 +38,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: '600',
     fontFamily: fonts.primary[600],
     color: colors.text.primary,
     marginTop: 20,

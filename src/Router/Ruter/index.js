@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'; 
 import {createStackNavigator} from '@react-navigation/stack';
 import {
+  Splash,
   GetStarted,
   Login,
   Register,
-  Splash,
   UploadPhoto,
   Doctor,
   Hospitals,
