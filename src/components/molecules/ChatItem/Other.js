@@ -3,21 +3,21 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {DummyDoctor5} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const Other = () => {
+const Other = ({text, date, photo}) => {
   return (
     <View style={styles.container}>
-      <Image source={DummyDoctor5} style={styles.avatar} />
+      <Image source={photo} style={styles.avatar} />
       <View>
         <View style={styles.contentChat}>
           <Text style={styles.text}>
-            Ibu dokter, apakah memakan jeruk tiap hari itu buruk?
+          {text}
           </Text>
         </View>
-        <Text style={styles.date}>4.20 AM</Text>
+        <Text style={styles.date}>{date}</Text>
       </View>
     </View>
   );
-};
+}; 
 
 export default Other;
 
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     padding: 12,
     paddingRight: 18,
     backgroundColor: colors.primary,
-    maxWidth: '80%',
+    maxWidth: '100%',
     borderRadius: 10,
     borderBottomLeftRadius: 0,
   },

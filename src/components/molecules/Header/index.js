@@ -1,13 +1,15 @@
-import React from 'react'
+import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {IconBackDark} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 import {Button, Gap} from '../../atoms';
 import DarkProfile from './DarkProfile';
 
-const Header = ({onPress, title, type}) => {
-  if (type==='dark-profile'){
-    return <DarkProfile onPress={onPress} />
+const Header = ({onPress, title, type, desc, photo}) => {
+  if (type === 'dark-profile') {
+    return (
+      <DarkProfile onPress={onPress} title={title} desc={desc} photo={photo} />
+    );
   }
   return (
     <View style={styles.container(type)}>
@@ -20,7 +22,7 @@ const Header = ({onPress, title, type}) => {
       <Gap width={24} />
     </View>
   );
-}
+};
 
 export default Header;
 
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomLeftRadius: type === 'dark' ? 20 : 0,
-    borderBottomRightRadius: type === 'dark' ? 20 : 0   
+    borderBottomRightRadius: type === 'dark' ? 20 : 0,
   }),
   text: (type) => ({
     textAlign: 'center',
@@ -40,6 +42,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: fonts.primary[600],
     color: type === 'dark' ? colors.white : colors.text.primary,
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
   }),
-})
+});
